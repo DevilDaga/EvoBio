@@ -155,9 +155,9 @@
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EvoBio\EvoBio.csproj">
+    <ProjectReference Include="..\EvoBio\EvoBio Version 0.csproj">
       <Project>{9b0dcf96-e68f-4c0a-8532-e7ec83c9e2ba}</Project>
-      <Name>EvoBio</Name>
+      <Name>EvoBio Version 0</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

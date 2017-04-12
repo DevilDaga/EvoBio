@@ -34,7 +34,7 @@ namespace GUI.ViewModel
 		private decimal joValue;
 		private ObservableCollection<ResultItem> results;
 		private ObservableCollection<string> xAxisValues;
-		private Func<decimal, string> yFormatter;
+		private Func<double, string> yFormatter;
 		private SeriesCollection seriesValues;
 		private bool isDiGrouped;
 		private bool isJoGrouped;
@@ -104,7 +104,7 @@ namespace GUI.ViewModel
 			set => Set ( nameof ( XAxisValues ), ref xAxisValues, value );
 		}
 
-		public Func<decimal, string> YFormatter
+		public Func<double, string> YFormatter
 		{
 			get => yFormatter;
 			set => Set ( nameof ( YFormatter ), ref yFormatter, value );
