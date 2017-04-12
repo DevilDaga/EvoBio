@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoBio", "EvoBio\EvoBio.csproj", "{9B0DCF96-E68F-4C0A-8532-E7EC83C9E2BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{9F0D9861-05D4-4115-9CA5-748797D2D13C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9B0DCF96-E68F-4C0A-8532-E7EC83C9E2BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B0DCF96-E68F-4C0A-8532-E7EC83C9E2BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B0DCF96-E68F-4C0A-8532-E7EC83C9E2BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F0D9861-05D4-4115-9CA5-748797D2D13C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F0D9861-05D4-4115-9CA5-748797D2D13C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F0D9861-05D4-4115-9CA5-748797D2D13C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F0D9861-05D4-4115-9CA5-748797D2D13C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
