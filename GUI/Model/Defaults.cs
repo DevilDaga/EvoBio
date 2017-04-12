@@ -1,10 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Web.Script.Serialization;
+using System.Collections.Generic;
 
 namespace GUI.Model
 {
-
 	public class Defaults
 	{
 		private static Defaults instance;
@@ -14,53 +15,66 @@ namespace GUI.Model
 			get
 			{
 				if ( instance == null )
+				{
 					instance = new Defaults ( );
+					instance.FillDefaults ( );
+				}
 				return instance;
 			}
 		}
 
 		private static readonly string DEFAULTSFILE = "Defaults.json";
 
-		private ObservableCollection<VariableItem> defaultVariables = new ObservableCollection<VariableItem>
-			{
-				new VariableItem ( "A", "Starting quantity of wild individuals", 10 ),
-				new VariableItem ( "B", "Starting quantity of mutant individuals", 10 ),
-				new VariableItem ( "C", "Starting quantity of amp individuals", 10 ),
-				new VariableItem ( "D", "Starting mean rep ability for wild individuals", 10 ),
-				new VariableItem ( "E", "Starting mean lethal ability for wild individuals", 10 ),
-				new VariableItem ( "F", "Starting mean rep ability for mutant individuals", 10 ),
-				new VariableItem ( "G", "Starting mean lethal ability for mutant individuals", 10 ),
-				new VariableItem ( "H", "Starting mean rep ability for amp individuals", 10 ),
-				new VariableItem ( "I", "Starting mean lethal ability for amp individuals", 10 ),
-				new VariableItem ( "J", "Coefficient of variation of rep ability for wild individuals", 0.1m ),
-				new VariableItem ( "K", "Coefficient of variation of lethal ability for wild individuals", 0.1m ),
-				new VariableItem ( "L", "Coefficient of variation of rep ability for mutant individuals", 0.1m ),
-				new VariableItem ( "M", "Coefficient of variation of lethal ability for mutant individuals", 0.1m ),
-				new VariableItem ( "N", "Coefficient of variation for rep ability for amp individuals", 0.1m ),
-				new VariableItem ( "O", "Coefficient of variation for lethal ability for amp individuals", 0.1m ),
-				new VariableItem ( "P", "Predator mean", 25 ),
-				new VariableItem ( "Q", "Predator coefficient of variation", 0.1m ),
-				new VariableItem ( "R", "Bias in allocation", 0.1m ),
-				new VariableItem ( "S", "Implementation Failure", 1 ),
-				new VariableItem ( "T", "Generations", 100 ),
-				new VariableItem ( "U", "Iterations", 1000 ),
-				new VariableItem ( "Y", "Percentage weighting", 1 )
-			};
+		private Dictionary<string, List<VariableItem>> defaultVars;
 
-		public ObservableCollection<VariableItem> DefaultVariables
+		public Dictionary<string, List<VariableItem>> DefaultVars
 		{
-			get => defaultVariables;
+			get
+			{
+				FillDefaults ( );
+				return defaultVars;
+			}
 			set
 			{
-				defaultVariables = value;
+				defaultVars = value;
 				Save ( );
 			}
 		}
 
 		static Defaults ( )
 		{
+
 			if ( !File.Exists ( DEFAULTSFILE ) )
 				Save ( );
+		}
+
+		public void FillDefaults ( )
+		{
+			if ( defaultVars != null )
+				return;
+
+			defaultVars = new Dictionary<string, List<VariableItem>>
+			{
+				["Version 0"] = new List<VariableItem> ( ),
+				["Version 1"] = new List<VariableItem> ( ),
+				["Version 2"] = new List<VariableItem> ( ),
+				["Version 3"] = new List<VariableItem> ( ),
+				["Version 4"] = new List<VariableItem> ( ),
+				["Version 5"] = new List<VariableItem> ( )
+			};
+
+			foreach ( var def in EvoBio_Version_0.Variables.Default )
+				defaultVars["Version 0"].Add ( new VariableItem ( def.Key, def.Value.description, def.Value.val ) );
+			foreach ( var def in EvoBio_Version_1.Variables.Default )
+				defaultVars["Version 1"].Add ( new VariableItem ( def.Key, def.Value.description, def.Value.val ) );
+			foreach ( var def in EvoBio_Version_2.Variables.Default )
+				defaultVars["Version 2"].Add ( new VariableItem ( def.Key, def.Value.description, def.Value.val ) );
+			foreach ( var def in EvoBio_Version_3.Variables.Default )
+				defaultVars["Version 3"].Add ( new VariableItem ( def.Key, def.Value.description, def.Value.val ) );
+			foreach ( var def in EvoBio_Version_4.Variables.Default )
+				defaultVars["Version 4"].Add ( new VariableItem ( def.Key, def.Value.description, def.Value.val ) );
+			foreach ( var def in EvoBio_Version_5.Variables.Default )
+				defaultVars["Version 5"].Add ( new VariableItem ( def.Key, def.Value.description, def.Value.val ) );
 		}
 
 		public static void Save ( )

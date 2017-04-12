@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace EvoBio_Version_0
+namespace EvoBio_Version_3
 {
 	public class Variables
 	{
@@ -32,22 +32,22 @@ namespace EvoBio_Version_0
 		[Description ( "Starting mean lethal ability for amp individuals" )]
 		public double I { get; set; }
 
-		[Description ( "Coefficient of variation of rep ability for wild individuals" )]
+		[Description ( "Standard Deviation of rep ability for wild individuals" )]
 		public double J { get; set; }
 
-		[Description ( "Coefficient of variation of lethal ability for wild individuals" )]
+		[Description ( "Standard Deviation of lethal ability for wild individuals" )]
 		public double K { get; set; }
 
-		[Description ( "Coefficient of variation of rep ability for mutant individuals" )]
+		[Description ( "Standard Deviation of rep ability for mutant individuals" )]
 		public double L { get; set; }
 
-		[Description ( "Coefficient of variation of lethal ability for mutant individuals" )]
+		[Description ( "Standard Deviation of lethal ability for mutant individuals" )]
 		public double M { get; set; }
 
-		[Description ( "Coefficient of variation for rep ability for amp individuals" )]
+		[Description ( "Standard Deviation for rep ability for amp individuals" )]
 		public double N { get; set; }
 
-		[Description ( "Coefficient of variation for lethal ability for amp individuals" )]
+		[Description ( "Standard Deviation for lethal ability for amp individuals" )]
 		public double O { get; set; }
 
 		[Description ( "Predator mean" )]
@@ -82,12 +82,12 @@ namespace EvoBio_Version_0
 			["G"] = ("Starting mean lethal ability for mutant individuals", 10),
 			["H"] = ("Starting mean rep ability for amp individuals", 10),
 			["I"] = ("Starting mean lethal ability for amp individuals", 10),
-			["J"] = ("Coefficient of variation of rep ability for wild individuals", 0.1m),
-			["K"] = ("Coefficient of variation of lethal ability for wild individuals", 0.1m),
-			["L"] = ("Coefficient of variation of rep ability for mutant individuals", 0.1m),
-			["M"] = ("Coefficient of variation of lethal ability for mutant individuals", 0.1m),
-			["N"] = ("Coefficient of variation for rep ability for amp individuals", 0.1m),
-			["O"] = ("Coefficient of variation for lethal ability for amp individuals", 0.1m),
+			["J"] = ("Standard Deviation of rep ability for wild individuals", 1m),
+			["K"] = ("Standard Deviation of lethal ability for wild individuals", 1m),
+			["L"] = ("Standard Deviation of rep ability for mutant individuals", 1m),
+			["M"] = ("Standard Deviation of lethal ability for mutant individuals", 1m),
+			["N"] = ("Standard Deviation for rep ability for amp individuals", 1m),
+			["O"] = ("Standard Deviation for lethal ability for amp individuals", 1m),
 			["P"] = ("Predator mean", 25),
 			["Q"] = ("Predator coefficient of variation", 0.1m),
 			["R"] = ("Bias in allocation", 0.1m),

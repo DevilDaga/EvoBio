@@ -63,6 +63,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.0-alpha\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -155,6 +158,26 @@
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EvoBio Version 1\EvoBio Version 1.csproj">
+      <Project>{c75460dc-060c-48ba-8578-f4d5d156cc49}</Project>
+      <Name>EvoBio Version 1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvoBio Version 2\EvoBio Version 2.csproj">
+      <Project>{88fc0e74-e1d6-424b-b4c2-679857f7b57c}</Project>
+      <Name>EvoBio Version 2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvoBio Version 3\EvoBio Version 3.csproj">
+      <Project>{1c6b30ae-56c7-41f4-adac-a815254251e0}</Project>
+      <Name>EvoBio Version 3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvoBio Version 4\EvoBio Version 4.csproj">
+      <Project>{fcee5afa-8272-47e4-b69f-c9e38edd4579}</Project>
+      <Name>EvoBio Version 4</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvoBio Version 5\EvoBio Version 5.csproj">
+      <Project>{92219901-15e9-4eb9-ab0a-5eafccd0879c}</Project>
+      <Name>EvoBio Version 5</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EvoBio\EvoBio Version 0.csproj">
       <Project>{9b0dcf96-e68f-4c0a-8532-e7ec83c9e2ba}</Project>
       <Name>EvoBio Version 0</Name>

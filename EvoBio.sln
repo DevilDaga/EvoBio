@@ -7,6 +7,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoBio Version 0", "EvoBio\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{9F0D9861-05D4-4115-9CA5-748797D2D13C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoBio Version 1", "EvoBio Version 1\EvoBio Version 1.csproj", "{C75460DC-060C-48BA-8578-F4D5D156CC49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoBio Version 2", "EvoBio Version 2\EvoBio Version 2.csproj", "{88FC0E74-E1D6-424B-B4C2-679857F7B57C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoBio Version 3", "EvoBio Version 3\EvoBio Version 3.csproj", "{1C6B30AE-56C7-41F4-ADAC-A815254251E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoBio Version 4", "EvoBio Version 4\EvoBio Version 4.csproj", "{FCEE5AFA-8272-47E4-B69F-C9E38EDD4579}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoBio Version 5", "EvoBio Version 5\EvoBio Version 5.csproj", "{92219901-15E9-4EB9-AB0A-5EAFCCD0879C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +31,26 @@ Global
 		{9F0D9861-05D4-4115-9CA5-748797D2D13C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F0D9861-05D4-4115-9CA5-748797D2D13C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F0D9861-05D4-4115-9CA5-748797D2D13C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C75460DC-060C-48BA-8578-F4D5D156CC49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C75460DC-060C-48BA-8578-F4D5D156CC49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C75460DC-060C-48BA-8578-F4D5D156CC49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C75460DC-060C-48BA-8578-F4D5D156CC49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88FC0E74-E1D6-424B-B4C2-679857F7B57C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88FC0E74-E1D6-424B-B4C2-679857F7B57C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88FC0E74-E1D6-424B-B4C2-679857F7B57C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88FC0E74-E1D6-424B-B4C2-679857F7B57C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C6B30AE-56C7-41F4-ADAC-A815254251E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C6B30AE-56C7-41F4-ADAC-A815254251E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C6B30AE-56C7-41F4-ADAC-A815254251E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C6B30AE-56C7-41F4-ADAC-A815254251E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCEE5AFA-8272-47E4-B69F-C9E38EDD4579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCEE5AFA-8272-47E4-B69F-C9E38EDD4579}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCEE5AFA-8272-47E4-B69F-C9E38EDD4579}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCEE5AFA-8272-47E4-B69F-C9E38EDD4579}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92219901-15E9-4EB9-AB0A-5EAFCCD0879C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92219901-15E9-4EB9-AB0A-5EAFCCD0879C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92219901-15E9-4EB9-AB0A-5EAFCCD0879C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92219901-15E9-4EB9-AB0A-5EAFCCD0879C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

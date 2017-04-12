@@ -97,67 +97,83 @@
 						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition Width="*" />
 					</Grid.ColumnDefinitions>
-					<DataGrid
+					<Grid
 						Grid.Row="0"
 						Grid.ColumnSpan="2"
 						Width="Auto"
-						Height="Auto"
-						Margin="10,10,10,10"
-						HorizontalAlignment="Center"
-						VerticalAlignment="Stretch"
-						HorizontalContentAlignment="Center"
-						AutoGenerateColumns="False"
-						BorderBrush="{DynamicResource AccentColorBrush}"
-						BorderThickness="2"
-						CanUserAddRows="False"
-						CanUserDeleteRows="False"
-						CanUserReorderColumns="False"
-						CanUserResizeRows="False"
-						FontSize="12"
-						IsSynchronizedWithCurrentItem="True"
-						IsTabStop="True"
-						ItemsSource="{Binding VariableCollection, Mode=TwoWay, IsAsync=True}"
-						SelectedItem="{Binding SelectedVariableItem}"
-						SelectionMode="Single"
-						Style="{StaticResource AzureDataGrid}"
-						TextOptions.TextHintingMode="Animated"
-						VirtualizingStackPanel.VirtualizationMode="Standard">
-						<DataGrid.ColumnHeaderStyle>
-							<Style BasedOn="{StaticResource MetroDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-								<Setter Property="HorizontalContentAlignment" Value="Center" />
-							</Style>
-						</DataGrid.ColumnHeaderStyle>
-						<DataGrid.Columns>
-							<DataGridTextColumn
-								Width="80"
-								Binding="{Binding Name}"
-								CanUserResize="False"
-								Header="Name"
-								IsReadOnly="True">
-								<DataGridTextColumn.ElementStyle>
-									<Style TargetType="TextBlock">
-										<Setter Property="HorizontalAlignment" Value="Center" />
-									</Style>
-								</DataGridTextColumn.ElementStyle>
-							</DataGridTextColumn>
-							<DataGridTextColumn
-								Width="Auto"
-								Binding="{Binding Description}"
-								CanUserResize="False"
-								Header="Description"
-								IsReadOnly="True" />
-							<DataGridTextColumn
-								Width="150"
-								Binding="{Binding Value}"
-								Header="Value">
-								<DataGridTextColumn.ElementStyle>
-									<Style TargetType="TextBlock">
-										<Setter Property="HorizontalAlignment" Value="Center" />
-									</Style>
-								</DataGridTextColumn.ElementStyle>
-							</DataGridTextColumn>
-						</DataGrid.Columns>
-					</DataGrid>
+						Height="Auto">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="200" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<ComboBox
+							Grid.Column="0"
+							Margin="10"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Top"
+							ItemsSource="{Binding Versions}"
+							SelectedItem="{Binding SelectedVersion}" />
+						<DataGrid
+							Grid.Column="1"
+							Width="Auto"
+							Height="Auto"
+							Margin="10,10,10,10"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Stretch"
+							HorizontalContentAlignment="Center"
+							AutoGenerateColumns="False"
+							BorderBrush="{DynamicResource AccentColorBrush}"
+							BorderThickness="2"
+							CanUserAddRows="False"
+							CanUserDeleteRows="False"
+							CanUserReorderColumns="False"
+							CanUserResizeRows="False"
+							FontSize="12"
+							IsSynchronizedWithCurrentItem="True"
+							IsTabStop="True"
+							ItemsSource="{Binding VariableCollection, Mode=TwoWay, IsAsync=True}"
+							SelectedItem="{Binding SelectedVariableItem}"
+							SelectionMode="Single"
+							Style="{StaticResource AzureDataGrid}"
+							TextOptions.TextHintingMode="Animated"
+							VirtualizingStackPanel.VirtualizationMode="Standard">
+							<DataGrid.ColumnHeaderStyle>
+								<Style BasedOn="{StaticResource MetroDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+									<Setter Property="HorizontalContentAlignment" Value="Center" />
+								</Style>
+							</DataGrid.ColumnHeaderStyle>
+							<DataGrid.Columns>
+								<DataGridTextColumn
+									Width="80"
+									Binding="{Binding Name}"
+									CanUserResize="False"
+									Header="Name"
+									IsReadOnly="True">
+									<DataGridTextColumn.ElementStyle>
+										<Style TargetType="TextBlock">
+											<Setter Property="HorizontalAlignment" Value="Center" />
+										</Style>
+									</DataGridTextColumn.ElementStyle>
+								</DataGridTextColumn>
+								<DataGridTextColumn
+									Width="Auto"
+									Binding="{Binding Description}"
+									CanUserResize="False"
+									Header="Description"
+									IsReadOnly="True" />
+								<DataGridTextColumn
+									Width="150"
+									Binding="{Binding Value}"
+									Header="Value">
+									<DataGridTextColumn.ElementStyle>
+										<Style TargetType="TextBlock">
+											<Setter Property="HorizontalAlignment" Value="Center" />
+										</Style>
+									</DataGridTextColumn.ElementStyle>
+								</DataGridTextColumn>
+							</DataGrid.Columns>
+						</DataGrid>
+					</Grid>
 					<GroupBox
 						Grid.Row="1"
 						Grid.Column="0"
@@ -379,7 +395,7 @@
 							<lvc:Axis Title="Percentage" LabelFormatter="{Binding YFormatter}" />
 						</lvc:CartesianChart.AxisY>
 						<lvc:CartesianChart.AxisX>
-							<lvc:Axis Title="{Binding RangedVariableName}" Labels="{Binding XAxisValues}" />
+							<lvc:Axis Title="{Binding XAXisVariableName}" Labels="{Binding XAxisValues}" />
 						</lvc:CartesianChart.AxisX>
 					</lvc:CartesianChart>
 				</Grid>

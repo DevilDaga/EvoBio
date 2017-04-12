@@ -27,6 +27,7 @@ namespace GUI.ViewModel
 		private Dictionary<string, VariableItem> variableMap;
 		private VariableItem selectedVariableItem;
 		private string rangedVariableName;
+		private string xAXisVariableName;
 		private decimal rangeStartValue;
 		private decimal rangeEndValue;
 		private decimal rangeStepValue;
@@ -39,6 +40,8 @@ namespace GUI.ViewModel
 		private bool isDiGrouped;
 		private bool isJoGrouped;
 		private decimal progressIterations;
+		private ObservableCollection<string> versions;
+		private string selectedVersion;
 
 		#endregion Members
 
@@ -60,6 +63,12 @@ namespace GUI.ViewModel
 		{
 			get => this.rangedVariableName;
 			set => Set ( nameof ( RangedVariableName ), ref rangedVariableName, value );
+		}
+
+		public string XAXisVariableName
+		{
+			get => xAXisVariableName;
+			set => Set ( nameof ( XAXisVariableName ), ref xAXisVariableName, value );
 		}
 
 		public decimal RangeStartValue
@@ -150,6 +159,22 @@ namespace GUI.ViewModel
 			set => Set ( nameof ( ProgressIterations ), ref progressIterations, value );
 		}
 
+		public ObservableCollection<string> Versions
+		{
+			get => this.versions;
+			set => Set ( nameof ( Versions ), ref versions, value );
+		}
+
+		public string SelectedVersion
+		{
+			get => this.selectedVersion;
+			set
+			{
+				Set ( nameof ( SelectedVersion ), ref selectedVersion, value );
+				VariableCollection = new ObservableCollection<VariableItem> ( Defaults.Instance.DefaultVars[value].ToList ( ) );
+			}
+		}
+
 		#endregion Properties
 
 		/// <summary>
@@ -158,7 +183,18 @@ namespace GUI.ViewModel
 		public MainViewModel ( IDataService dataService )
 		{
 			Defaults.Load ( );
-			VariableCollection = new ObservableCollection<VariableItem> ( Defaults.Instance.DefaultVariables.ToList ( ) );
+
+			Versions = new ObservableCollection<string>
+			{
+				"Version 0",
+				"Version 1",
+				"Version 2",
+				"Version 3",
+				"Version 4",
+				"Version 5"
+			};
+
+			SelectedVersion = Versions.FirstOrDefault ( );
 
 			VariableCollectionToMap ( );
 
@@ -261,44 +297,27 @@ namespace GUI.ViewModel
 			for ( var curValue = rangeStartValue; curValue <= rangeEndValue; curValue += RangeStepValue )
 			{
 				if ( IsDiGrouped )
+				{
 					variablesDi.ForEach ( x => x.Value = curValue );
+					XAXisVariableName = "D-I";
+				}
 				else if ( IsJoGrouped )
+				{
 					variablesJo.ForEach ( x => x.Value = curValue );
+					XAXisVariableName = "J-O";
+				}
 				else
+				{
 					variableCollection.First ( x => x.Name == RangedVariableName ).Value = curValue;
+					XAXisVariableName = RangedVariableName;
+				}
+
 				VariableCollectionToMap ( );
-				var v = new Variables
-				{
-					A = (int) variableMap["A"].Value,
-					B = (int) variableMap["B"].Value,
-					C = (int) variableMap["C"].Value,
-					D = (double) variableMap["D"].Value,
-					E = (double) variableMap["E"].Value,
-					F = (double) variableMap["F"].Value,
-					G = (double) variableMap["G"].Value,
-					H = (double) variableMap["H"].Value,
-					I = (double) variableMap["I"].Value,
-					J = (double) variableMap["J"].Value,
-					K = (double) variableMap["K"].Value,
-					L = (double) variableMap["L"].Value,
-					M = (double) variableMap["M"].Value,
-					N = (double) variableMap["N"].Value,
-					O = (double) variableMap["O"].Value,
-					P = (double) variableMap["P"].Value,
-					Q = (double) variableMap["Q"].Value,
-					R = (double) variableMap["R"].Value,
-					S = (double) variableMap["S"].Value,
-					T = (int) variableMap["T"].Value,
-					U = (int) variableMap["U"].Value,
-					Y = (double) variableMap["Y"].Value
-				};
-				var result = new ResultItem
-				{
-					AllVariables = v,
-					RangedVariable = variableMap[RangedVariableName]
-				};
-				await result.RunAsync ( progress );
+
+				var result = new ResultItem ( );
+				await result.RunAsync ( variableMap, RangedVariableName, SelectedVersion, progress );
 				Results.Add ( result );
+
 				XAxisValues.Add ( $"{result.RangedVariableValue}" );
 				SeriesValues[0].Values.Add ( result.WildPercentage );
 				SeriesValues[1].Values.Add ( result.MutantPercentage );

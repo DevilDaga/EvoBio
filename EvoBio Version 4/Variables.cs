@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace EvoBio_Version_0
+namespace EvoBio_Version_4
 {
 	public class Variables
 	{
