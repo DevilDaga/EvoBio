@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GUI.Model;
 using LiveCharts;
+using LiveCharts.Helpers;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace GUI.ViewModel
 	/// </summary>
 	public class MainViewModel : ViewModelBase
 	{
+		#region Members
+
 		private ObservableCollection<VariableItem> variableCollection;
 		private Dictionary<string, VariableItem> variableMap;
 		private VariableItem selectedVariableItem;
@@ -33,6 +36,12 @@ namespace GUI.ViewModel
 		private ObservableCollection<string> xAxisValues;
 		private Func<decimal, string> yFormatter;
 		private SeriesCollection seriesValues;
+		private bool isDiGrouped;
+		private bool isJoGrouped;
+
+		#endregion Members
+
+		#region Properties
 
 		public ObservableCollection<VariableItem> VariableCollection
 		{
@@ -111,6 +120,30 @@ namespace GUI.ViewModel
 			get => this.results;
 			set => Set ( nameof ( Results ), ref results, value );
 		}
+
+		public bool IsDiGrouped
+		{
+			get => this.isDiGrouped;
+			set
+			{
+				Set ( nameof ( IsDiGrouped ), ref isDiGrouped, value );
+				if ( value )
+					IsJoGrouped = false;
+			}
+		}
+
+		public bool IsJoGrouped
+		{
+			get => this.isJoGrouped;
+			set
+			{
+				Set ( nameof ( IsJoGrouped ), ref isJoGrouped, value );
+				if ( value )
+					IsDiGrouped = false;
+			}
+		}
+
+		#endregion Properties
 
 		/// <summary>
 		/// Initializes a new instance of the MainViewModel class.
@@ -198,7 +231,6 @@ namespace GUI.ViewModel
 		private async void Simulate ( )
 		{
 			RangedVariableName = selectedVariableItem.Name;
-			var rangedVariableDescription = selectedVariableItem.Description;
 			XAxisValues.Clear ( );
 			Results.Clear ( );
 			foreach ( var series in SeriesValues )
@@ -211,11 +243,17 @@ namespace GUI.ViewModel
 				RangeStepValue = 1m;
 			}
 
+			var variablesDi = variableCollection.Where ( x => new string[] { "D", "E", "F", "G", "H", "I" }.Contains ( x.Name ) );
+			var variablesJo = variableCollection.Where ( x => new string[] { "J", "K", "L", "M", "N", "O" }.Contains ( x.Name ) );
+
 			for ( var curValue = rangeStartValue; curValue <= rangeEndValue; curValue += RangeStepValue )
 			{
-				variableCollection.Remove ( variableCollection.First ( x => x.Name == RangedVariableName ) );
-				variableCollection.Add ( new VariableItem ( RangedVariableName, rangedVariableDescription, curValue ) );
-				VariableCollection = new ObservableCollection<VariableItem> ( VariableCollection.OrderBy ( x => x.Name ) );
+				if ( IsDiGrouped )
+					variablesDi.ForEach ( x => x.Value = curValue );
+				else if ( IsJoGrouped )
+					variablesJo.ForEach ( x => x.Value = curValue );
+				else
+					variableCollection.First ( x => x.Name == RangedVariableName ).Value = curValue;
 				VariableCollectionToMap ( );
 				var v = new Variables
 				{
