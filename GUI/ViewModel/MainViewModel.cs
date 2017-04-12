@@ -1,4 +1,4 @@
-﻿using EvoBio;
+﻿using EvoBio_Version_0;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GUI.Model;

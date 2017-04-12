@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace EvoBio
+namespace EvoBio_Version_0
 {
 	public class AmpIndividual : Individual
 	{

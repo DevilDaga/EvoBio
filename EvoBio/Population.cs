@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EvoBio
+namespace EvoBio_Version_0
 {
 	public class Population
 	{
