@@ -1,5 +1,6 @@
 ﻿using EvoBio;
 using System.Threading.Tasks;
+using System;
 
 namespace GUI.Model
 {
@@ -29,19 +30,19 @@ namespace GUI.Model
 
 		public double RangedVariableValue => (double) RangedVariable.Value;
 
-		public ResultItem Run ( )
+		public ResultItem Run ( IProgress<decimal> progress )
 		{
 			population = new Population { V = AllVariables.Clone ( ) };
-			population.Iterate ( );
+			population.Iterate ( progress );
 
 			return this;
 		}
 
-		public async Task RunAsync ( )
+		public async Task RunAsync ( IProgress<decimal> progress )
 		{
 			population = new Population { V = AllVariables.Clone ( ) };
 			//population.Output = new StreamWriter ( "steps.txt" );
-			await population.IterateAsync ( );
+			await population.IterateAsync ( progress );
 		}
 
 		public override string ToString ( ) => $"Wild={WildPercentage} Mutant={MutantPercentage} Amp={AmpPercentage}";

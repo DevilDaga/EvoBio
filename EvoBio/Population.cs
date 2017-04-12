@@ -881,12 +881,13 @@ namespace EvoBio
 			Step8Output ( );
 		}
 
-		public void Iterate ( )
+		public void Iterate ( IProgress<decimal> progress = null )
 		{
 			var backup = V.Clone ( );
 			highest = new HighestValue ( );
 			for ( var iteration = 0; iteration < V.U; iteration++ )
 			{
+				progress?.Report ( 1.0m * iteration / V.U );
 				Step1 ( );
 				isErrored = false;
 				for ( var i = 0; i != V.T && !isErrored; ++i )
@@ -955,9 +956,9 @@ namespace EvoBio
 			}
 		}
 
-		public async Task IterateAsync ( )
+		public async Task IterateAsync ( IProgress<decimal> progress )
 		{
-			await Task.Run ( ( ) => Iterate ( ) );
+			await Task.Run ( ( ) => Iterate ( progress ) );
 		}
 
 		public async Task IterateOutputAsync ( )

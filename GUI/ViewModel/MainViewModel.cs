@@ -38,6 +38,7 @@ namespace GUI.ViewModel
 		private SeriesCollection seriesValues;
 		private bool isDiGrouped;
 		private bool isJoGrouped;
+		private decimal progressIterations;
 
 		#endregion Members
 
@@ -143,6 +144,12 @@ namespace GUI.ViewModel
 			}
 		}
 
+		public decimal ProgressIterations
+		{
+			get => this.progressIterations;
+			set => Set ( nameof ( ProgressIterations ), ref progressIterations, value );
+		}
+
 		#endregion Properties
 
 		/// <summary>
@@ -246,6 +253,11 @@ namespace GUI.ViewModel
 			var variablesDi = variableCollection.Where ( x => new string[] { "D", "E", "F", "G", "H", "I" }.Contains ( x.Name ) );
 			var variablesJo = variableCollection.Where ( x => new string[] { "J", "K", "L", "M", "N", "O" }.Contains ( x.Name ) );
 
+			var progress = new Progress<decimal> ( x =>
+			{
+				ProgressIterations = 100m * x;
+			} );
+
 			for ( var curValue = rangeStartValue; curValue <= rangeEndValue; curValue += RangeStepValue )
 			{
 				if ( IsDiGrouped )
@@ -285,12 +297,14 @@ namespace GUI.ViewModel
 					AllVariables = v,
 					RangedVariable = variableMap[RangedVariableName]
 				};
-				await result.RunAsync ( );
+				await result.RunAsync ( progress );
 				Results.Add ( result );
 				XAxisValues.Add ( $"{result.RangedVariableValue}" );
 				SeriesValues[0].Values.Add ( result.WildPercentage );
 				SeriesValues[1].Values.Add ( result.MutantPercentage );
 				SeriesValues[2].Values.Add ( result.AmpPercentage );
+
+				ProgressIterations = 0;
 			}
 
 			RangeStartValue = 0;

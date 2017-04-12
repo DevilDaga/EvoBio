@@ -63,9 +63,14 @@
 	</Controls:MetroWindow.RightWindowCommands>
 
 	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="25" />
+		</Grid.RowDefinitions>
 
 		<Controls:MetroAnimatedSingleRowTabControl
 			x:Name="tabControl"
+			Grid.Row="0"
 			Margin="0,10,0,0"
 			HorizontalAlignment="Center"
 			HorizontalContentAlignment="Center">
@@ -380,5 +385,6 @@
 				</Grid>
 			</TabItem>
 		</Controls:MetroAnimatedSingleRowTabControl>
+		<Controls:MetroProgressBar Grid.Row="1" Value="{Binding ProgressIterations}" />
 	</Grid>
 </Controls:MetroWindow>
