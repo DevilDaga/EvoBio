@@ -1,5 +1,5 @@
-﻿using GalaSoft.MvvmLight.Threading;
-using System.Windows;
+﻿using System.Windows;
+using GalaSoft.MvvmLight.Threading;
 
 namespace GUI
 {

@@ -1,5 +1,5 @@
-﻿using MathNet.Numerics.Distributions;
-using System;
+﻿using System;
+using MathNet.Numerics.Distributions;
 
 namespace EvoBio_Version_0
 {

@@ -1,15 +1,14 @@
-﻿using EvoBio_Version_0;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GUI.Model;
 using LiveCharts;
 using LiveCharts.Helpers;
 using LiveCharts.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Media;
 
 namespace GUI.ViewModel
 {

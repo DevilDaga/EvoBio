@@ -1,5 +1,5 @@
-﻿using GUI.Model;
-using System;
+﻿using System;
+using GUI.Model;
 
 namespace GUI.Design
 {

@@ -1,8 +1,8 @@
-﻿using GUI.ViewModel;
+﻿using System.Windows;
+using System.Windows.Controls;
+using GUI.ViewModel;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace GUI
 {
