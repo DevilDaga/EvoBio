@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoBio Version 4", "EvoBio 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoBio Version 5", "EvoBio Version 5\EvoBio Version 5.csproj", "{92219901-15E9-4EB9-AB0A-5EAFCCD0879C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoBio Version 6", "EvoBio Version 6\EvoBio Version 6.csproj", "{0E921DC8-EF69-403E-8333-D9C514D6F35E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{92219901-15E9-4EB9-AB0A-5EAFCCD0879C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92219901-15E9-4EB9-AB0A-5EAFCCD0879C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92219901-15E9-4EB9-AB0A-5EAFCCD0879C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E921DC8-EF69-403E-8333-D9C514D6F35E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E921DC8-EF69-403E-8333-D9C514D6F35E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E921DC8-EF69-403E-8333-D9C514D6F35E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E921DC8-EF69-403E-8333-D9C514D6F35E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

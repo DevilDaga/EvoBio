@@ -58,7 +58,8 @@ namespace GUI.Model
 				["Version 2"] = new List<VariableItem> ( ),
 				["Version 3"] = new List<VariableItem> ( ),
 				["Version 4"] = new List<VariableItem> ( ),
-				["Version 5"] = new List<VariableItem> ( )
+				["Version 5"] = new List<VariableItem> ( ),
+				["Version 6"] = new List<VariableItem> ( )
 			};
 
 			foreach ( var def in EvoBio_Version_0.Variables.Default )
@@ -73,6 +74,8 @@ namespace GUI.Model
 				defaultVars["Version 4"].Add ( new VariableItem ( def.Key, def.Value.description, def.Value.val ) );
 			foreach ( var def in EvoBio_Version_5.Variables.Default )
 				defaultVars["Version 5"].Add ( new VariableItem ( def.Key, def.Value.description, def.Value.val ) );
+			foreach ( var def in EvoBio_Version_6.Variables.Default )
+				defaultVars["Version 6"].Add ( new VariableItem ( def.Key, def.Value.description, def.Value.val ) );
 		}
 
 		public static void Save ( )
