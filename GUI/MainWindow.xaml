@@ -387,7 +387,12 @@
 					x:Name="gridSimulation"
 					Width="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type gui:MainWindow}}}"
 					Margin="0,0,10,15">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="30" />
+					</Grid.RowDefinitions>
 					<lvc:CartesianChart
+						Grid.Row="0"
 						Margin="10"
 						LegendLocation="Right"
 						Series="{Binding SeriesValues}">
@@ -398,6 +403,15 @@
 							<lvc:Axis Title="{Binding XAXisVariableName}" Labels="{Binding XAxisValues}" />
 						</lvc:CartesianChart.AxisX>
 					</lvc:CartesianChart>
+					<Button
+						Grid.Row="1"
+						Height="30"
+						Margin="30,0,30,0"
+						HorizontalAlignment="Stretch"
+						IsEnabled="{Binding HasResults}"
+						VerticalAlignment="Bottom"
+						Command="{Binding PrintGraphCommand}"
+						Content="Print Graph Values To File" />
 				</Grid>
 			</TabItem>
 		</Controls:MetroAnimatedSingleRowTabControl>

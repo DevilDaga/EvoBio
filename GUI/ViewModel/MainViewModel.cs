@@ -9,6 +9,7 @@ using GUI.Model;
 using LiveCharts;
 using LiveCharts.Helpers;
 using LiveCharts.Wpf;
+using System.IO;
 
 namespace GUI.ViewModel
 {
@@ -41,6 +42,7 @@ namespace GUI.ViewModel
 		private decimal progressIterations;
 		private ObservableCollection<string> versions;
 		private string selectedVersion;
+		private bool hasResults;
 
 		#endregion Members
 
@@ -93,6 +95,8 @@ namespace GUI.ViewModel
 		public RelayCommand InputJoCommand { get; set; }
 
 		public RelayCommand SimulateCommand { get; set; }
+
+		public RelayCommand PrintGraphCommand { get; set; }
 
 		public decimal DiValue
 		{
@@ -174,6 +178,12 @@ namespace GUI.ViewModel
 			}
 		}
 
+		public bool HasResults
+		{
+			get => this.hasResults;
+			set => Set ( nameof ( HasResults ), ref hasResults, value );
+		}
+
 		#endregion Properties
 
 		/// <summary>
@@ -201,6 +211,7 @@ namespace GUI.ViewModel
 			InputDiCommand = new RelayCommand ( InputDi, CanInputDi );
 			InputJoCommand = new RelayCommand ( InputJo, CanInputJo );
 			SimulateCommand = new RelayCommand ( Simulate, CanSimulate );
+			PrintGraphCommand = new RelayCommand ( PrintGraph, CanPrintGraph );
 
 			Results = new ObservableCollection<ResultItem> ( );
 			XAxisValues = new ObservableCollection<string> ( );
@@ -273,6 +284,8 @@ namespace GUI.ViewModel
 
 		private async void Simulate ( )
 		{
+			HasResults = false;
+
 			RangedVariableName = selectedVariableItem.Name;
 			XAxisValues.Clear ( );
 			Results.Clear ( );
@@ -329,6 +342,32 @@ namespace GUI.ViewModel
 			RangeStartValue = 0;
 			RangeEndValue = 0;
 			RangeStepValue = 0;
+
+			HasResults = true;
+		}
+
+		private bool CanPrintGraph ( ) => true;
+
+		private void PrintGraph ( )
+		{
+			if ( RangeStartValue == 0m && RangeEndValue == 0m && RangeStepValue == 0m )
+			{
+				RangeStartValue = variableMap[RangedVariableName].Value;
+				RangeEndValue = variableMap[RangedVariableName].Value;
+				RangeStepValue = 1m;
+			}
+
+			var stream = new StreamWriter ( $"{RangedVariableName}.txt" );
+			stream.WriteLine ( "value \t wild  \t mutant\t amp" );
+
+			var i = 0;
+			for ( var curValue = rangeStartValue; curValue <= rangeEndValue; curValue += RangeStepValue, ++i )
+			{
+				stream.WriteLine ( $"{curValue}\t {SeriesValues[0].Values[i]} \t {SeriesValues[1].Values[i]} \t {SeriesValues[2].Values[i]}" );
+			}
+
+			stream.Flush ( );
+			stream.Close ( );
 		}
 	}
 }
