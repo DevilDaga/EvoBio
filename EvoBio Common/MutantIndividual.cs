@@ -1,4 +1,4 @@
-﻿namespace EvoBio_Version_2
+﻿namespace EvoBio_Common
 {
 	public class MutantIndividual : Individual
 	{

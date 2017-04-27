@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
@@ -9,7 +10,6 @@ using GUI.Model;
 using LiveCharts;
 using LiveCharts.Helpers;
 using LiveCharts.Wpf;
-using System.IO;
 
 namespace GUI.ViewModel
 {

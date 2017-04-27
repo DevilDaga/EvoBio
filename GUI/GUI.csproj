@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -158,6 +158,10 @@
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EvoBio Common\EvoBio Common.csproj">
+      <Project>{df837e15-fa70-41de-8a64-8631bab4d54f}</Project>
+      <Name>EvoBio Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EvoBio Version 1\EvoBio Version 1.csproj">
       <Project>{c75460dc-060c-48ba-8578-f4d5d156cc49}</Project>
       <Name>EvoBio Version 1</Name>

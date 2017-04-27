@@ -1,7 +1,7 @@
 ﻿using System;
 using MathNet.Numerics.Distributions;
 
-namespace EvoBio_Version_5
+namespace EvoBio_Common
 {
 	public static class Utility
 	{

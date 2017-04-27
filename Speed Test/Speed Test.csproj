@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{88FC0E74-E1D6-424B-B4C2-679857F7B57C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EvoBio_Version_2</RootNamespace>
-    <AssemblyName>EvoBio Version 2</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <ProjectGuid>{CCCD061C-6B8E-484A-9B98-7CB8D81F881B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Speed_Test</RootNamespace>
+    <AssemblyName>Speed Test</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,14 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MathNet.Numerics, Version=3.18.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MathNet.Numerics.3.18.0\lib\net40\MathNet.Numerics.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,17 +42,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Population.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Variables.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EvoBio Common\EvoBio Common.csproj">
       <Project>{df837e15-fa70-41de-8a64-8631bab4d54f}</Project>
       <Name>EvoBio Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvoBio Version 1\EvoBio Version 1.csproj">
+      <Project>{c75460dc-060c-48ba-8578-f4d5d156cc49}</Project>
+      <Name>EvoBio Version 1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvoBio Version 2\EvoBio Version 2.csproj">
+      <Project>{88fc0e74-e1d6-424b-b4c2-679857f7b57c}</Project>
+      <Name>EvoBio Version 2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvoBio Version 3\EvoBio Version 3.csproj">
+      <Project>{1c6b30ae-56c7-41f4-adac-a815254251e0}</Project>
+      <Name>EvoBio Version 3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvoBio Version 4\EvoBio Version 4.csproj">
+      <Project>{fcee5afa-8272-47e4-b69f-c9e38edd4579}</Project>
+      <Name>EvoBio Version 4</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvoBio Version 5\EvoBio Version 5.csproj">
+      <Project>{92219901-15e9-4eb9-ab0a-5eafccd0879c}</Project>
+      <Name>EvoBio Version 5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvoBio Version 6\EvoBio Version 6.csproj">
+      <Project>{0e921dc8-ef69-403e-8333-d9c514d6f35e}</Project>
+      <Name>EvoBio Version 6</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EvoBio\EvoBio Version 0.csproj">
+      <Project>{9b0dcf96-e68f-4c0a-8532-e7ec83c9e2ba}</Project>
+      <Name>EvoBio Version 0</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

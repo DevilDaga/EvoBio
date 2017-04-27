@@ -408,10 +408,10 @@
 						Height="30"
 						Margin="30,0,30,0"
 						HorizontalAlignment="Stretch"
-						IsEnabled="{Binding HasResults}"
 						VerticalAlignment="Bottom"
 						Command="{Binding PrintGraphCommand}"
-						Content="Print Graph Values To File" />
+						Content="Print Graph Values To File"
+						IsEnabled="{Binding HasResults}" />
 				</Grid>
 			</TabItem>
 		</Controls:MetroAnimatedSingleRowTabControl>
