@@ -7,7 +7,13 @@ namespace EvoBio_Common
 	{
 		public static Random rand = new Random ( );
 
-		public static double NextDouble => rand.NextDouble ( );
+		private static double _NextDouble ( )
+		{
+			lock ( rand )
+				return rand.NextDouble ( );
+		}
+
+		public static double NextDouble => _NextDouble ( );
 
 		public static decimal NextDecimal => (decimal) NextDouble;
 
@@ -40,14 +46,14 @@ namespace EvoBio_Common
 
 		public static double NextGaussian ( double mean, double sd )
 		{
-			var normalDist = new Normal ( mean, sd, rand );
+			var normalDist = new Normal ( mean, sd );
 			double randomGaussianValue = normalDist.Sample ( );
 			return randomGaussianValue;
 		}
 
 		public static double[] NextGaussianSymbols ( double mean, double sd, int n )
 		{
-			var normalDist = new Normal ( mean, sd, rand );
+			var normalDist = new Normal ( mean, sd );
 			double[] samples = new double[n];
 			normalDist.Samples ( samples );
 			return samples;

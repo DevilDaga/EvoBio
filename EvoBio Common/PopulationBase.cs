@@ -93,9 +93,12 @@ namespace EvoBio_Common
 
 		protected virtual void Step1 ( )
 		{
-			WildIndividuals = CreateStartingDistribution<WildIndividual> ( V.D, V.J, V.E, V.K, V.A );
-			MutantIndividuals = CreateStartingDistribution<MutantIndividual> ( V.F, V.L, V.G, V.M, V.B );
-			AmpIndividuals = CreateStartingDistribution<AmpIndividual> ( V.H, V.N, V.I, V.O, V.C );
+			Parallel.Invoke
+			(
+				( ) => WildIndividuals = CreateStartingDistribution<WildIndividual> ( V.D, V.J, V.E, V.K, V.A ),
+				( ) => MutantIndividuals = CreateStartingDistribution<MutantIndividual> ( V.F, V.L, V.G, V.M, V.B ),
+				( ) => AmpIndividuals = CreateStartingDistribution<AmpIndividual> ( V.H, V.N, V.I, V.O, V.C )
+			);
 		}
 
 		protected virtual void Step1Output ( )
@@ -126,7 +129,7 @@ namespace EvoBio_Common
 			PredatorPercent = Math.Max ( 0, PredatorPercent );
 			var predatorPercentY = Math.Min ( V.Y * PredatorPercent, 1 );
 
-			foreach ( var individual in AllIndividualsEnumerable )
+			Parallel.ForEach ( AllIndividualsEnumerable, ( individual ) =>
 			{
 				individual.originalRep = individual.rep;
 				individual.originalLethal = individual.lethal;
@@ -135,6 +138,16 @@ namespace EvoBio_Common
 					individual.lethal * predatorPercentY +
 					individual.rep * ( 1 - predatorPercentY );
 			}
+			);
+			//foreach ( var individual in AllIndividualsEnumerable )
+			//{
+			//	individual.originalRep = individual.rep;
+			//	individual.originalLethal = individual.lethal;
+
+			//	individual.fitness =
+			//		individual.lethal * predatorPercentY +
+			//		individual.rep * ( 1 - predatorPercentY );
+			//}
 		}
 
 		protected virtual void Step2Output ( )
@@ -199,10 +212,13 @@ namespace EvoBio_Common
 
 		protected virtual void Step3 ( )
 		{
-			foreach ( var wild in WildIndividuals )
-				wild.Adjust ( );
-			foreach ( var amp in AmpIndividuals )
-				amp.Adjust ( );
+			Parallel.ForEach ( WildIndividuals, ( wild ) => wild.Adjust ( ) );
+			Parallel.ForEach ( AmpIndividuals, ( amp ) => amp.Adjust ( ) );
+
+			//foreach ( var wild in WildIndividuals )
+			//	wild.Adjust ( );
+			//foreach ( var amp in AmpIndividuals )
+			//	amp.Adjust ( );
 		}
 
 		protected virtual void Step3Output ( )
@@ -243,25 +259,39 @@ namespace EvoBio_Common
 		protected virtual void Step4 ( )
 		{
 			var predatorPercentY = Math.Min ( V.Y * PredatorPercent, 1 );
-			foreach ( var individual in AllIndividualsEnumerable )
-			{
-				individual.tempFitness =
-								individual.lethal * predatorPercentY +
-								individual.rep * ( 1 - predatorPercentY );
-			}
+			//foreach ( var individual in AllIndividualsEnumerable )
+			//{
+			//	individual.tempFitness =
+			//					individual.lethal * predatorPercentY +
+			//					individual.rep * ( 1 - predatorPercentY );
+			//}
 
 			var cutOffIndex = (int) Math.Round ( PredatorPercent * TotalIndividuals, 0 );
 			cutOffIndex = Math.Min ( cutOffIndex, TotalIndividuals - 1 );
 			var sorted = AllIndividualsEnumerable.OrderBy ( x => x.lethal );
 			var cutOffLethal = sorted.ElementAt ( cutOffIndex ).lethal;
 
-			foreach ( var ind in AllIndividualsEnumerable )
+			//foreach ( var ind in AllIndividualsEnumerable )
+			//	if ( ind.lethal < cutOffLethal )
+			//		ind.tempFitness = 0;
+
+			Parallel.ForEach ( AllIndividualsEnumerable, ( ind ) =>
+			{
 				if ( ind.lethal < cutOffLethal )
 					ind.tempFitness = 0;
+				else
+					ind.tempFitness =
+								ind.lethal * predatorPercentY +
+								ind.rep * ( 1 - predatorPercentY );
+			}
+			);
 
-			WildTempTotal = WildIndividuals.Sum ( x => x.tempFitness );
-			MutantTempTotal = MutantIndividuals.Sum ( x => x.tempFitness );
-			AmpTempTotal = AmpIndividuals.Sum ( x => x.tempFitness );
+			Parallel.Invoke
+			(
+				( ) => WildTempTotal = WildIndividuals.Sum ( x => x.tempFitness ),
+				( ) => MutantTempTotal = MutantIndividuals.Sum ( x => x.tempFitness ),
+				( ) => AmpTempTotal = AmpIndividuals.Sum ( x => x.tempFitness )
+			);
 		}
 
 		protected virtual void Step4Output ( )
@@ -391,9 +421,12 @@ namespace EvoBio_Common
 
 		protected virtual void Step5 ( )
 		{
-			WildLost = WildIndividuals.Sum ( x => x.Lost );
-			MutantLost = MutantIndividuals.Sum ( x => x.Lost );
-			AmpLost = AmpIndividuals.Sum ( x => x.Lost );
+			Parallel.Invoke
+			(
+				( ) => WildLost = WildIndividuals.Sum ( x => x.Lost ),
+				( ) => MutantLost = MutantIndividuals.Sum ( x => x.Lost ),
+				( ) => AmpLost = AmpIndividuals.Sum ( x => x.Lost )
+			);
 		}
 
 		protected virtual void Step5Output ( )
@@ -462,20 +495,57 @@ namespace EvoBio_Common
 
 			TotalAllocation = 0;
 
-			foreach ( var ind in AllIndividualsEnumerable )
-			{
-				var wildMultiplier = ( ind is WildIndividual ) ? rPlus1 : 1;
-				var mutantMultiplier = ( ind is MutantIndividual ) ? rPlus1 : 1;
-				var ampMultiplier = ( ind is AmpIndividual ) ? rPlus1 : 1;
+			Parallel.Invoke
+			(
+				( ) => Parallel.ForEach ( WildIndividuals, ( wild ) =>
+				 {
+					 wild.allocation = 1;
+					 wild.allocation += rPlus1 * WildLost * V.S / ( V.R * WildTempTotal + denom );
+					 wild.allocation += MutantLost * V.S / ( V.R * MutantTempTotal + denom );
+					 wild.allocation += AmpLost * V.S / ( V.R * AmpTempTotal + denom );
+					 wild.allocation *= wild.tempFitness;
 
-				ind.allocation = 1;
-				ind.allocation += wildMultiplier * WildLost * V.S / ( V.R * WildTempTotal + denom );
-				ind.allocation += mutantMultiplier * MutantLost * V.S / ( V.R * MutantTempTotal + denom );
-				ind.allocation += ampMultiplier * AmpLost * V.S / ( V.R * AmpTempTotal + denom );
-				ind.allocation *= ind.tempFitness;
+					 TotalAllocation += wild.allocation;
+				 }
+				),
+				( ) => Parallel.ForEach ( AmpIndividuals, ( amp ) =>
+				 {
+					 amp.allocation = 1;
+					 amp.allocation += WildLost * V.S / ( V.R * WildTempTotal + denom );
+					 amp.allocation += MutantLost * V.S / ( V.R * MutantTempTotal + denom );
+					 amp.allocation += rPlus1 * AmpLost * V.S / ( V.R * AmpTempTotal + denom );
+					 amp.allocation *= amp.tempFitness;
 
-				TotalAllocation += ind.allocation;
-			}
+					 TotalAllocation += amp.allocation;
+				 }
+				),
+				( ) => Parallel.ForEach ( MutantIndividuals, ( mutant ) =>
+				 {
+					 mutant.allocation = 1;
+					 mutant.allocation += WildLost * V.S / ( V.R * WildTempTotal + denom );
+					 mutant.allocation += rPlus1 * MutantLost * V.S / ( V.R * MutantTempTotal + denom );
+					 mutant.allocation += AmpLost * V.S / ( V.R * AmpTempTotal + denom );
+					 mutant.allocation *= mutant.tempFitness;
+
+					 TotalAllocation += mutant.allocation;
+				 }
+			)
+			);
+
+			//foreach ( var ind in AllIndividualsEnumerable )
+			//{
+			//	var wildMultiplier = ( ind is WildIndividual ) ? rPlus1 : 1;
+			//	var mutantMultiplier = ( ind is MutantIndividual ) ? rPlus1 : 1;
+			//	var ampMultiplier = ( ind is AmpIndividual ) ? rPlus1 : 1;
+
+			//	ind.allocation = 1;
+			//	ind.allocation += wildMultiplier * WildLost * V.S / ( V.R * WildTempTotal + denom );
+			//	ind.allocation += mutantMultiplier * MutantLost * V.S / ( V.R * MutantTempTotal + denom );
+			//	ind.allocation += ampMultiplier * AmpLost * V.S / ( V.R * AmpTempTotal + denom );
+			//	ind.allocation *= ind.tempFitness;
+
+			//	TotalAllocation += ind.allocation;
+			//}
 		}
 
 		protected virtual void Step6Output ( )
@@ -569,7 +639,8 @@ namespace EvoBio_Common
 			var chosen = new List<Individual> ( TotalIndividuals );
 			var all = AllIndividuals;
 
-			for ( var i = 0; i != TotalIndividuals; ++i )
+			//for ( var i = 0; i != TotalIndividuals; ++i )
+			Parallel.For ( 0, TotalIndividuals, i =>
 			{
 				double cumulative = 0;
 				var cutOff = Utility.NextDouble * TotalAllocation;
@@ -590,7 +661,8 @@ namespace EvoBio_Common
 								lethal = Math.Max ( 0, Utility.NextGaussian ( ind.originalLethal, ind.originalLethal * V.K ) ),
 								rep = Math.Max ( 0, Utility.NextGaussian ( ind.originalRep, ind.originalRep * V.J ) )
 							};
-							chosen.Add ( offspring );
+							lock ( chosen )
+								chosen.Add ( offspring );
 							break;
 
 						case MutantIndividual _:
@@ -599,7 +671,8 @@ namespace EvoBio_Common
 								lethal = Math.Max ( 0, Utility.NextGaussian ( ind.originalLethal, ind.originalLethal * V.M ) ),
 								rep = Math.Max ( 0, Utility.NextGaussian ( ind.originalRep, ind.originalRep * V.L ) )
 							};
-							chosen.Add ( offspring );
+							lock ( chosen )
+								chosen.Add ( offspring );
 							break;
 
 						case AmpIndividual _:
@@ -608,12 +681,14 @@ namespace EvoBio_Common
 								lethal = Math.Max ( 0, Utility.NextGaussian ( ind.originalLethal, ind.originalLethal * V.O ) ),
 								rep = Math.Max ( 0, Utility.NextGaussian ( ind.originalRep, ind.originalRep * V.N ) )
 							};
-							chosen.Add ( offspring );
+							lock ( chosen )
+								chosen.Add ( offspring );
 							break;
 					}
 					break;
 				}
 			}
+			);
 			if ( chosen.Sum ( x => x.rep ) == 0 )
 				isErrored = true;
 
@@ -717,9 +792,12 @@ namespace EvoBio_Common
 		protected virtual void Step7 ( )
 		{
 			var chosen = ChooseParents ( );
-			WildIndividuals = chosen.OfType<WildIndividual> ( ).ToList ( );
-			MutantIndividuals = chosen.OfType<MutantIndividual> ( ).ToList ( );
-			AmpIndividuals = chosen.OfType<AmpIndividual> ( ).ToList ( );
+			Parallel.Invoke
+			(
+			( ) => WildIndividuals = chosen.OfType<WildIndividual> ( ).ToList ( ),
+			( ) => MutantIndividuals = chosen.OfType<MutantIndividual> ( ).ToList ( ),
+			( ) => AmpIndividuals = chosen.OfType<AmpIndividual> ( ).ToList ( )
+			);
 		}
 
 		protected virtual void Step7Output ( )
@@ -762,12 +840,16 @@ namespace EvoBio_Common
 
 		protected virtual void Step8 ( )
 		{
-			var avgRep = AllIndividualsEnumerable.Average ( x => x.rep );
-			var avgLethal = AllIndividualsEnumerable.Average ( x => x.lethal );
+			double avgRep = 0, avgLethal = 0;
+			Parallel.Invoke
+			(
+				( ) => avgRep = AllIndividualsEnumerable.Average ( x => x.rep ),
+				( ) => avgLethal = AllIndividualsEnumerable.Average ( x => x.lethal )
+			);
 			var avgStartRep = ( V.A * V.D + V.B * V.F + V.C * V.H ) / TotalIndividuals;
 			var avgStartLethal = ( V.A * V.E + V.B * V.G + V.C * V.I ) / TotalIndividuals;
 
-			foreach ( var ind in AllIndividualsEnumerable )
+			Parallel.ForEach ( AllIndividualsEnumerable, ( ind ) =>
 			{
 				ind.rep *= avgStartRep / avgRep;
 				ind.lethal *= avgStartLethal / avgLethal;
@@ -775,6 +857,16 @@ namespace EvoBio_Common
 				if ( double.IsNaN ( ind.rep ) )
 					isErrored = true;
 			}
+			);
+
+			//foreach ( var ind in AllIndividualsEnumerable )
+			//{
+			//	ind.rep *= avgStartRep / avgRep;
+			//	ind.lethal *= avgStartLethal / avgLethal;
+
+			//	if ( double.IsNaN ( ind.rep ) )
+			//		isErrored = true;
+			//}
 		}
 
 		protected virtual void Step8Output ( )
